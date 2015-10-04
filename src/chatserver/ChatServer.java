@@ -35,12 +35,14 @@ public class ChatServer {
         ServerSocket serverSocket = new ServerSocket(9980);
         Socket clientSocket = serverSocket.accept();
         PrintWriter out = new PrintWriter(clientSocket.getOutputStream(),true);
+        hammingCoder hammingcoder = new hammingCoder();
         Scanner in = new Scanner(clientSocket.getInputStream());
         out.println("Welcome to chat server 1");
         while(true){
             
             if(in.hasNext()){
-                System.out.println(in.nextLine());
+                hammingcoder.decode(in.nextLine());
+                //System.out.println(in.nextLine());
                     
             }
             
