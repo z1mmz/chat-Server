@@ -176,91 +176,123 @@ public class hammingCoder {
 //        System.out.println();
         return hammingCodes;
     }
-    public void decode(String a){
-        // check bits
+    public void decode(String b){
+        
+        int a[] = new int[b.length()];
+       for (int i = 0; i <b.length();i++){
+        a[i] = Character.getNumericValue(b.charAt(i));
+       }        
+// check bits
         int zeros;
         int ones;
-        for (int i = 0;i < a.length();i++){
+        boolean errors[];
+        errors = new boolean[9];
+        for (int i = 0;i < a.length;i++){
             if (((i + 1) & i) == 0 && i + 1 > 0) {
                     zeros = 0;
                     ones = 0;
                     //hamming code check for bit zero 
                     if (i == 0) {
-                        for (int d = 0; d < a.length(); d += 2) {
-                            if (a.charAt(i) == 0) {
+                        for (int d = 0; d < a.length; d += 2) {
+                            if (a[d] == 0) {
                                 zeros++;
                             }
-                            if (a.charAt(i) == 1) {
+                            if (a[d] == 1) {
                                 ones++;
                             }
                         }
-                    }
+                    
                     // check if 1s or zeros are even
-                    if (!(ones % 2 == 0)) {
-                        System.out.print("ERROR");
-                    }   if (!(zeros % 2 == 0)) {
-                        System.out.print(" Zeros ERROR");
-                    } 
-                    //Hamming for bit 1
-//                    if (z == 1) {
-//                        int howMany = 0;
-//                        for (int d = 1; d < tempHamming.length; d++) {
-//                            if (tempHamming[d] == 0) {
-//                                zeros++;
-//                            }
-//                            if (tempHamming[d] == 1) {
-//                                ones++;
-//                            }
-//                            howMany++;
-//                            if (howMany >= 2) {
-//                                d += 2;
-//                            }
-//                        }
-//                        if (ones % 2 == 0) {
-//                            tempHamming[z] = 0;
-//                        } else {
-//                            tempHamming[z] = 1;
-//                        }
-//                    }
-//                    if (z == 3) {
-//                        int howMany = 0;
-//                        for (int d = 3; d < tempHamming.length; d++) {
-//                            if (tempHamming[d] == 0) {
-//                                zeros++;
-//                            }
-//                            if (tempHamming[d] == 1) {
-//                                ones++;
-//                            }
-//                            howMany++;
-//                            if (howMany >= 4) {
-//                                d += 4;
-//                            }
-//                        }
-//                        if (ones % 2 == 0) {
-//                            tempHamming[z] = 0;
-//                        } else {
-//                            tempHamming[z] = 1;
-//                        }
-//                    }
-//                    if (z == 7) {
-//                        int howMany = 0;
-//                        for (int d = 7; d < tempHamming.length; d++) {
-//                            if (tempHamming[d] == 0) {
-//                                zeros++;
-//                            }
-//                            if (tempHamming[d] == 1) {
-//                                ones++;
-//                            }
-//                            howMany++;
-//                            if (howMany >= 8) {
-//                                d += 8;
-//                            }
-//                        }
-//                        if (ones % 2 == 0) {
-//                            tempHamming[z] = 0;
-//                        } else {
-//                            tempHamming[z] = 1;
-//                        }
+                        if (ones % 2 != 0) {
+                            errors[i] = true;
+                            
+                        }   if (zeros % 2 != 0) {
+                            errors[i] = true;
+                            
+                        }
+                    }
+                    if (i == 1) {
+                       int howMany = 0;
+                        for (int d = 1; d < a.length; d++) {
+                            System.out.print(a[d]);
+                        
+                            if (a[d] == 0) {
+                                zeros++;
+                            }
+                            if (a[d] == 1) {
+                                ones++;
+                            }
+                            howMany++;
+                            if(howMany == 2){
+                                d += 2;
+                                howMany = 0;
+                            }
+                            
+                        }
+                        System.out.println(zeros);
+                    // check if 1s or zeros are even
+                        if (ones % 2 != 0) {
+                            errors[i] = true;
+                            
+                        }   if (zeros % 2 != 0) {
+                            errors[i] = true;
+                            
+                        }
+                    }
+                    if (i == 3) {
+                       int howMany = 0;
+                        for (int d = 3; d < a.length; d++) {
+                            if (a[d] == 0) {
+                                zeros++;
+                            }
+                            if (a[d] == 1) {
+                                ones++;
+                            }
+                            howMany++;
+                            if(howMany ==4){
+                                d += 4;
+                                howMany = 0;
+                            }
+                            
+                        }
+                    
+                    // check if 1s or zeros are even
+                        if (ones % 2 != 0) {
+                            errors[i] = true;
+                            
+                        }   if (zeros % 2 != 0) {
+                            errors[i] = true;
+                            
+                        }
+                    }
+                    if (i == 7) {
+                       int howMany = 0;
+                        for (int d = 7; d < a.length; d++) {
+                            if (a[d]== 0) {
+                                zeros++;
+                            }
+                            if (a[d] == 1) {
+                                ones++;
+                            }
+                            howMany++;
+                            if(howMany ==8){
+                                d += 8;
+                                howMany = 0;
+                            }
+                            
+                        }
+                    
+                    // check if 1s or zeros are even
+                        if (ones % 2 != 0) {
+                            errors[i] = true;
+                            
+                        }   if (zeros % 2 != 0) {
+                            errors[i] = true;
+                            
+                        }
+                    }
+                  
+
                }
 
                 }
@@ -268,10 +300,16 @@ public class hammingCoder {
         // if not try correct
         //if more than one error detected
         //ask to resend.
-        
-        
-    
-    
+        int errorBit = 0;
+        for(int x = 0; x < errors.length;x++){
+            if(errors[x] == true){
+                
+                System.out.println("Error at" + x);
+                errorBit += x+1;
+            }
+       
+        }
+        System.out.println("Error is at: "+errorBit);
     }
 
 }
