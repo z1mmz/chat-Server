@@ -170,146 +170,164 @@ public class hammingCoder {
 
             }
             hammingCodes.add(tempHamming);
-          //  System.out.println("IMHERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            //  System.out.println("IMHERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         }
-        
+
 //        System.out.println();
         return hammingCodes;
     }
-    public void decode(String b){
-        
+
+    public void decode(String b) {
+
         int a[] = new int[b.length()];
-       for (int i = 0; i <b.length();i++){
-        a[i] = Character.getNumericValue(b.charAt(i));
-       }        
+        for (int i = 0; i < b.length(); i++) {
+            a[i] = Character.getNumericValue(b.charAt(i));
+        }
 // check bits
         int zeros;
         int ones;
         boolean errors[];
-        errors = new boolean[9];
-        for (int i = 0;i < a.length;i++){
+        errors = new boolean[11];
+        for (int i = 0; i < a.length; i++) {
             if (((i + 1) & i) == 0 && i + 1 > 0) {
-                    zeros = 0;
-                    ones = 0;
-                    //hamming code check for bit zero 
-                    if (i == 0) {
-                        for (int d = 0; d < a.length; d += 2) {
-                            if (a[d] == 0) {
-                                zeros++;
-                            }
-                            if (a[d] == 1) {
-                                ones++;
-                            }
+                zeros = 0;
+                ones = 0;
+                //hamming code check for bit zero 
+                if (i == 0) {
+                    for (int d = 0; d < a.length; d += 2) {
+                        if (a[d] == 0) {
+                            zeros++;
                         }
-                    
-                    // check if 1s or zeros are even
-                        if (ones % 2 != 0) {
-                            errors[i] = true;
-                            
-                        }   if (zeros % 2 != 0) {
-                            errors[i] = true;
-                            
+                        if (a[d] == 1) {
+                            ones++;
                         }
                     }
-                    if (i == 1) {
-                       int howMany = 0;
-                        for (int d = 1; d < a.length; d++) {
-                            System.out.print(a[d]);
-                        
-                            if (a[d] == 0) {
-                                zeros++;
-                            }
-                            if (a[d] == 1) {
-                                ones++;
-                            }
-                            howMany++;
-                            if(howMany == 2){
-                                d += 2;
-                                howMany = 0;
-                            }
-                            
-                        }
-                        System.out.println(zeros);
-                    // check if 1s or zeros are even
-                        if (ones % 2 != 0) {
-                            errors[i] = true;
-                            
-                        }   if (zeros % 2 != 0) {
-                            errors[i] = true;
-                            
-                        }
-                    }
-                    if (i == 3) {
-                       int howMany = 0;
-                        for (int d = 3; d < a.length; d++) {
-                            if (a[d] == 0) {
-                                zeros++;
-                            }
-                            if (a[d] == 1) {
-                                ones++;
-                            }
-                            howMany++;
-                            if(howMany ==4){
-                                d += 4;
-                                howMany = 0;
-                            }
-                            
-                        }
-                    
-                    // check if 1s or zeros are even
-                        if (ones % 2 != 0) {
-                            errors[i] = true;
-                            
-                        }   if (zeros % 2 != 0) {
-                            errors[i] = true;
-                            
-                        }
-                    }
-                    if (i == 7) {
-                       int howMany = 0;
-                        for (int d = 7; d < a.length; d++) {
-                            if (a[d]== 0) {
-                                zeros++;
-                            }
-                            if (a[d] == 1) {
-                                ones++;
-                            }
-                            howMany++;
-                            if(howMany ==8){
-                                d += 8;
-                                howMany = 0;
-                            }
-                            
-                        }
-                    
-                    // check if 1s or zeros are even
-                        if (ones % 2 != 0) {
-                            errors[i] = true;
-                            
-                        }   if (zeros % 2 != 0) {
-                            errors[i] = true;
-                            
-                        }
-                    }
-                  
 
-               }
+                    // check if 1s or zeros are even
+                    if (ones % 2 != 0) {
+                        errors[i] = true;
 
+                    }
+                    if (zeros % 2 != 0) {
+                        errors[i] = true;
+
+                    }
                 }
+                if (i == 1) {
+                    int howMany = 0;
+                    for (int d = 1; d < a.length; d++) {
+                            //System.out.print("ones check"+a[d]);
+
+                        if (a[d] == 0) {
+                            zeros++;
+                        }
+                        if (a[d] == 1) {
+                            ones++;
+                        }
+                        howMany++;
+                        if (howMany == 2) {
+                            d += 2;
+                            howMany = 0;
+                        }
+
+                    }
+                    System.out.println(zeros);
+                    // check if 1s or zeros are even
+                    if (ones % 2 != 0) {
+                        errors[i] = true;
+
+                    }
+                    if (zeros % 2 != 0) {
+                        errors[i] = true;
+
+                    }
+                }
+                if (i == 3) {
+                    int howMany = 0;
+                    for (int d = 3; d < a.length; d++) {
+                        if (a[d] == 0) {
+                            zeros++;
+                        }
+                        if (a[d] == 1) {
+                            ones++;
+                        }
+                        howMany++;
+                        if (howMany == 4) {
+                            d += 4;
+                            howMany = 0;
+                        }
+
+                    }
+
+                    // check if 1s or zeros are even
+                    if (ones % 2 != 0) {
+                        errors[i] = true;
+
+                    }
+                    if (zeros % 2 != 0) {
+                        errors[i] = true;
+
+                    }
+                }
+                if (i == 7) {
+                    int howMany = 0;
+                    for (int d = 7; d < a.length; d++) {
+                        if (a[d] == 0) {
+                            zeros++;
+                        }
+                        if (a[d] == 1) {
+                            ones++;
+                        }
+                        howMany++;
+                        if (howMany == 8) {
+                            d += 8;
+                            howMany = 0;
+                        }
+
+                    }
+
+                    // check if 1s or zeros are even
+                    if (ones % 2 != 0) {
+                        errors[i] = true;
+
+                    }
+                    if (zeros % 2 != 0) {
+                        errors[i] = true;
+
+                    }
+                }
+
+            }
+
+        }
         //is 0s and 1s even
         // if not try correct
         //if more than one error detected
         //ask to resend.
-        int errorBit = 0;
-        for(int x = 0; x < errors.length;x++){
-            if(errors[x] == true){
-                
-                System.out.println("Error at" + x);
-                errorBit += x+1;
-            }
-       
+        for (int i = 0; i < a.length; i++) {
+            System.out.print(a[i]);
         }
-        System.out.println("Error is at: "+errorBit);
+        int errorBit = 0;
+        for (int x = 0; x < errors.length; x++) {
+            if (errors[x] == true) {
+
+                System.out.println("Error at" + x);
+                errorBit += x + 1;
+            }
+
+        }
+        System.out.println("Error is at: " + errorBit);
+        if (errorBit > 0) {
+            if (a[errorBit - 1] == 1) {
+                a[errorBit - 1] = 0;
+            } else {
+                a[errorBit - 1] = 1;
+            }
+        }
+        System.out.println("Corrected code :");
+        for (int i = 0; i < a.length; i++) {
+            System.out.print(a[i]);
+        }
     }
 
 }
